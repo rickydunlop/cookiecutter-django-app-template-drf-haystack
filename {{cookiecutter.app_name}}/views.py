@@ -6,7 +6,7 @@ from .serializers import {{ cookiecutter.model_name }}Serializer
 
 class {{ cookiecutter.model_name }}ViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    A simple ViewSet for viewing {{ app_name }}.
+    A simple ViewSet for viewing {{ cookiecutter.app_name }}.
     """
     queryset = {{ cookiecutter.model_name }}.objects.all()
     serializer_class = {{ cookiecutter.model_name }}Serializer
