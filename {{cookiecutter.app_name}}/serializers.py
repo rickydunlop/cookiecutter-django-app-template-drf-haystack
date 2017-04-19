@@ -6,10 +6,6 @@ from .search_indexes import {{ cookiecutter.model_name }}Index
 
 
 class {{ cookiecutter.model_name }}Serializer(serializers.ModelSerializer):
-    groupby_key = serializers.SerializerMethodField()
-
-    def get_groupby_key(self, obj):
-        return obj._meta.verbose_name_plural.title()
 
     class Meta:
         model = {{ cookiecutter.model_name }}
@@ -17,12 +13,10 @@ class {{ cookiecutter.model_name }}Serializer(serializers.ModelSerializer):
 
 
 class {{ cookiecutter.model_name }}SearchSerializer(HaystackSerializerMixin, {{ cookiecutter.model_name }}Serializer):
+    groupby_key = serializers.SerializerMethodField()
+
+    def get_groupby_key(self, obj):
+        return obj._meta.verbose_name_plural.title()
 
     class Meta({{ cookiecutter.model_name }}Serializer.Meta):
         index_classes = [{{ cookiecutter.model_name }}Index]
-        ignore_fields = ['text']
-        search_fields = ('text', )
-        exclude = ()
-        field_aliases = {
-            'q': 'text'
-        }
